@@ -13,6 +13,7 @@ def report():
     money = resources['money']
     print(f'Water: {water}ml\nMilk: {milk}ml\nCoffee: {coffee}g\nMoney{money}')
 
+
 def onlyGoodOptions():
     options=['1','2', '3', 'report' ]
     functionality=None
@@ -23,34 +24,37 @@ def onlyGoodOptions():
         clearConsole()
     return functionality
 
+
 def brew(water, milk, coffee):
     resources['water']-=water
     resources['milk']-=milk
     resources['coffee']-=coffee
 
-def coffe(typeOfCoffe):
+
+def coffe(typeOfCoffe, withmilk):
     product=[typeOfCoffe][0]
-    print(product)
     ingredients=product['ingredients']
-    print(ingredients)
     price=product['cost']
-    print(price)
-    brew(ingredients['water'],ingredients['milk'],ingredients['coffee'])
+    if withmilk:
+        brew(ingredients['water'],ingredients['milk'],ingredients['coffee'])
+    else:
+        brew(ingredients['water'],0, ingredients['coffee'])
+
 
 #TODO espresso diffrent ingredients (no milk)
 def makeQuest(quest):
     if quest=='1':
-        coffe(MENU['espresso']) #TODO 2 def espresso
+        coffe(MENU['espresso'], False) #TODO 2 def espresso
     elif quest=='2':
-        coffe(MENU['latte']) #TODO 3 def latte
+        coffe(MENU['latte'], True) #TODO 3 def latte
     elif quest=='3':
-        coffe(MENU['cappuccino']) #TODO 4 def cappuccino
+        coffe(MENU['cappuccino'], True) #TODO 4 def cappuccino
     else:
         report()
 
 
 #tests
-print(MENU['espresso']['ingredients'])
+
 #machine body
 while machineOn:
     whatToDo=onlyGoodOptions()
