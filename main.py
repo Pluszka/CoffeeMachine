@@ -1,11 +1,11 @@
 from menu import MENU, resources
 
 # TODO 1 print resorces of machine
-def report(currentCondition):
-    water = currentCondition['water']
-    milk = currentCondition['milk']
-    coffee = currentCondition['coffee']
+def report():
+    water = resources['water']
+    milk = resources['milk']
+    coffee = resources['coffee']
     print(f'Water: {water}\nMilk: {milk}\nCoffee: {coffee}')
 
-
-report(resources)
+# TODO 2 choose coffe or report
+report()
