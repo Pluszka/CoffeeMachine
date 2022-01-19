@@ -15,7 +15,7 @@ def report():
 
 
 def onlyGoodOptions():
-    options=['1','2', '3', 'report' ]
+    options=['1','2', '3', 'report','off' ]
     functionality=None
     while functionality not in options:
         if functionality!=None:
@@ -30,6 +30,9 @@ def brew(water, milk, coffee):
     resources['milk']-=milk
     resources['coffee']-=coffee
 
+def pay(moneyToPay):
+    #TODO bring money from consumer
+    resources['money'] += moneyToPay
 
 def coffe(typeOfCoffe, withmilk):
     product=[typeOfCoffe][0]
@@ -39,16 +42,19 @@ def coffe(typeOfCoffe, withmilk):
         brew(ingredients['water'],ingredients['milk'],ingredients['coffee'])
     else:
         brew(ingredients['water'],0, ingredients['coffee'])
+    pay(moneyToPay)
 
 
-#TODO espresso diffrent ingredients (no milk)
 def makeQuest(quest):
+    global machineOn
     if quest=='1':
-        coffe(MENU['espresso'], False) #TODO 2 def espresso
+        coffe(MENU['espresso'], False)
     elif quest=='2':
-        coffe(MENU['latte'], True) #TODO 3 def latte
+        coffe(MENU['latte'], True)
     elif quest=='3':
-        coffe(MENU['cappuccino'], True) #TODO 4 def cappuccino
+        coffe(MENU['cappuccino'], True)
+    elif quest=='off':
+        machineOn=False
     else:
         report()
 
@@ -59,4 +65,5 @@ def makeQuest(quest):
 while machineOn:
     whatToDo=onlyGoodOptions()
     makeQuest(whatToDo)
+
 # TODO 1 cleaning func
