@@ -5,12 +5,13 @@ machineOn=True
 
 clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
-# TODO 1 print resorces of machine
+
 def report():
     water = resources['water']
     milk = resources['milk']
     coffee = resources['coffee']
-    print(f'Water: {water}\nMilk: {milk}\nCoffee: {coffee}')
+    money = resources['money']
+    print(f'Water: {water}ml\nMilk: {milk}ml\nCoffee: {coffee}g\nMoney{money}')
 
 def onlyGoodOptions():
     options=['1','2', '3', 'report' ]
@@ -21,10 +22,37 @@ def onlyGoodOptions():
         functionality = input('What would you like? (espresso(1)/latte(2)/cappuccino(3):')
         clearConsole()
     return functionality
-# TODO 2 choose coffe or report
-# TODO 3 only correct answers in machine
 
+def brew(water, milk, coffee):
+    resources['water']-=water
+    resources['milk']-=milk
+    resources['coffee']-=coffee
+
+def coffe(typeOfCoffe):
+    product=[typeOfCoffe][0]
+    print(product)
+    ingredients=product['ingredients']
+    print(ingredients)
+    price=product['cost']
+    print(price)
+    brew(ingredients['water'],ingredients['milk'],ingredients['coffee'])
+
+#TODO espresso diffrent ingredients (no milk)
+def makeQuest(quest):
+    if quest=='1':
+        coffe(MENU['espresso']) #TODO 2 def espresso
+    elif quest=='2':
+        coffe(MENU['latte']) #TODO 3 def latte
+    elif quest=='3':
+        coffe(MENU['cappuccino']) #TODO 4 def cappuccino
+    else:
+        report()
+
+
+#tests
+print(MENU['espresso']['ingredients'])
 #machine body
 while machineOn:
     whatToDo=onlyGoodOptions()
-# TODO 4 cleaning func
+    makeQuest(whatToDo)
+# TODO 1 cleaning func
