@@ -41,6 +41,9 @@ def brew(water, milk, coffee, cash):
         return False
 
 
+def change(moneyToReturn):
+    print(f'Here is ${round(moneyToReturn,2)} dollars in change.')
+
 def onlyGoodCoin():
     validFaceValue=[0.05, 0.01, 0.25, 0.10, 'X'] #TODO add to list X and cancel order
     coin=None
@@ -64,7 +67,9 @@ def insertCoin(bill):
             return False
         else:
             alreadyIn+=currentCoin
-            print(f'${alreadyIn}/${bill}')
+            print(f'${round(alreadyIn,2)}/${bill}')
+    if alreadyIn>bill:
+        change(alreadyIn-bill)
     return True
 
 def pay(moneyToPay):
