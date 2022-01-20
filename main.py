@@ -25,38 +25,59 @@ def onlyGoodOptions():
     return functionality
 
 
-def brew(water, milk, coffee):
-    resources['water']-=water
-    resources['milk']-=milk
-    resources['coffee']-=coffee
+def brew(water, milk, coffee, cash):
+    if resources['water']<water:
+        return 'water'
+    elif resources['milk']<milk:
+        return 'milk'
+    elif resources['coffee']<coffee:
+        return 'coffe'
+    else:
+        pay(cash)
+        resources['water'] -= water
+        resources['milk'] -= milk
+        resources['coffee'] -= coffee
+        return True
 
 def pay(moneyToPay):
     #TODO bring money from consumer
     resources['money'] += moneyToPay
+    return True
 
 def coffe(typeOfCoffe, withmilk):
     product=[typeOfCoffe][0]
     ingredients=product['ingredients']
-    price=product['cost']
+    price=product['cost']  #TODO pay func must return a bolean
     if withmilk:
-        brew(ingredients['water'],ingredients['milk'],ingredients['coffee'])
+        itsOkay=brew(ingredients['water'],ingredients['milk'],ingredients['coffee'], price)
     else:
-        brew(ingredients['water'],0, ingredients['coffee'])
-    pay(moneyToPay)
+        itsOkay=(ingredients['water'],0, ingredients['coffee'], price)
+    if itsOkay==True:
+        return True
+    else:
+        return itsOkay
 
+
+#TODO i must make better corelation with numbers and coffees
 
 def makeQuest(quest):
     global machineOn
+    done=False
+    listoOfCoffe={'1':'espresso', '2':'latte', '3':'cappuccino'}
     if quest=='1':
-        coffe(MENU['espresso'], False)
+        done=coffe(MENU[listoOfCoffe['1']], False)
     elif quest=='2':
-        coffe(MENU['latte'], True)
+        done=coffe(MENU[listoOfCoffe['2']], True)
     elif quest=='3':
-        coffe(MENU['cappuccino'], True)
+        done=coffe(MENU[listoOfCoffe['3']], True)
     elif quest=='off':
         machineOn=False
     else:
         report()
+    if done==True:
+        print(f'Here is your {listoOfCoffe[quest]}. Enjoy!')
+    elif done!=False:
+        print(f'Sorry there is not enough {done}.')
 
 
 #tests
