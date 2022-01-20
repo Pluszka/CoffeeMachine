@@ -51,7 +51,7 @@ def coffe(typeOfCoffe, withmilk):
     if withmilk:
         itsOkay=brew(ingredients['water'],ingredients['milk'],ingredients['coffee'], price)
     else:
-        itsOkay=(ingredients['water'],0, ingredients['coffee'], price)
+        itsOkay=brew(ingredients['water'],0, ingredients['coffee'], price)
     if itsOkay==True:
         return True
     else:
