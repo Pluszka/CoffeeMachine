@@ -63,6 +63,7 @@ def insertCoin(bill):
             print('Order canceled.')
             return False
         else:
+            alreadyIn+=currentCoin
             print(f'${alreadyIn}/${bill}')
     return True
 
