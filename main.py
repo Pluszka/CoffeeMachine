@@ -42,20 +42,28 @@ def brew(water, milk, coffee, cash):
 
 
 def onlyGoodCoin():
-    validFaceValue=[0.05, 0.01, 0.25, 0.10] #TODO add to list X and cancel order
+    validFaceValue=[0.05, 0.01, 0.25, 0.10, 'X'] #TODO add to list X and cancel order
     coin=None
     while not coin in validFaceValue:
         if coin!=None:
             print('Invalid coin.')
-        coin=float(input('Insert coin: $'))
+        coin=input('Insert coin: $').upper()
+        if coin=='X':
+            return False
+        else:
+            coin=float(coin)
     return coin
 
 def insertCoin(bill):
     alreadyIn=0
     print(f'You should pay ${bill} (Press "X" to cancel)')
     while alreadyIn<bill:
-        alreadyIn+=onlyGoodCoin()
-        print(f'${alreadyIn}/${bill}')
+        currentCoin=onlyGoodCoin()
+        if currentCoin==False:
+            print('Order canceled.')
+            return False
+        else:
+            print(f'${alreadyIn}/${bill}')
     return True
 
 def pay(moneyToPay):
