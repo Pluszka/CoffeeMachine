@@ -90,7 +90,7 @@ def coffe(typeOfCoffe, withmilk):
         itsOkay=brew(ingredients['water'],ingredients['milk'],ingredients['coffee'], price)
     else:
         itsOkay=brew(ingredients['water'],0, ingredients['coffee'], price)
-    if itsOkay:
+    if itsOkay==True:
         return True
     if itsOkay==False:
         return None
@@ -114,7 +114,7 @@ def makeQuest(quest):
         machineOn=False
     else:
         report()
-    if done:
+    if done==True:
         print(f'Here is your {listoOfCoffe[quest]}. Enjoy!')
     elif done!=False and done!=None:
         print(f'Sorry there is not enough {done}.')
