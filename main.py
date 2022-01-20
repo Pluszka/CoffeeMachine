@@ -11,7 +11,7 @@ def report():
     milk = resources['milk']
     coffee = resources['coffee']
     money = resources['money']
-    print(f'Water: {water}ml\nMilk: {milk}ml\nCoffee: {coffee}g\nMoney{money}')
+    print(f'Water: {water}ml\nMilk: {milk}ml\nCoffee: {coffee}g\nMoney: ${money}')
 
 
 def onlyGoodOptions():
@@ -39,8 +39,25 @@ def brew(water, milk, coffee, cash):
         resources['coffee'] -= coffee
         return True
 
+
+def onlyGoodCoin():
+    validFaceValue=[0.05, 0.01, 0.25, 0.10]
+    coin=None
+    while not coin in validFaceValue:
+        if coin!=None:
+            print('Invalid coin.')
+        coin=int(input('Insert coin: $'))
+    return coin
+
+def insertCoin(bill):
+    alreadyin=0
+    print(f'You should pay ${bill} (Press "X" to cancel)')
+    while alreadyin>bill:
+        alredyin+=onlyGoodCoin()
+
+
 def pay(moneyToPay):
-    #TODO bring money from consumer
+    insertCoin(moneyToPay)
     resources['money'] += moneyToPay
     return True
 
@@ -86,5 +103,5 @@ def makeQuest(quest):
 while machineOn:
     whatToDo=onlyGoodOptions()
     makeQuest(whatToDo)
-
+    clearConsole()
 # TODO 1 cleaning func
