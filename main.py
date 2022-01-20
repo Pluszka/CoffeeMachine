@@ -1,10 +1,6 @@
 from menu import MENU, resources
-import os
 
 machineOn=True
-
-clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
-
 
 def report():
     water = resources['water']
@@ -12,7 +8,6 @@ def report():
     coffee = resources['coffee']
     money = resources['money']
     print(f'Water: {water}ml\nMilk: {milk}ml\nCoffee: {coffee}g\nMoney: ${money}')
-
 
 def onlyGoodOptions():
     options=['1','2', '3', 'report','off' ]
@@ -23,7 +18,6 @@ def onlyGoodOptions():
         functionality = input('What would you like? (espresso(1)/latte(2)/cappuccino(3):')
         clearConsole()
     return functionality
-
 
 def brew(water, milk, coffee, cash):
     if resources['water']<water:
@@ -39,7 +33,6 @@ def brew(water, milk, coffee, cash):
             resources['coffee'] -= coffee
             return True
         return False
-
 
 def change(moneyToReturn):
     print(f'Here is ${round(moneyToReturn,2)} dollars in change.')
@@ -63,7 +56,6 @@ def insertCoin(bill):
     while alreadyIn<bill:
         currentCoin=onlyGoodCoin()
         if not currentCoin:
-            clearConsole()
             if alreadyIn>0:
                 print(f'Here your money: ${alreadyIn}')
             print('Order canceled.')
@@ -71,7 +63,6 @@ def insertCoin(bill):
         else:
             alreadyIn+=currentCoin
             print(f'${round(alreadyIn,2)}/${bill}')
-    clearConsole()
     if alreadyIn>bill:
         change(alreadyIn-bill)
     return True
@@ -97,9 +88,6 @@ def coffe(typeOfCoffe, withmilk):
     else:
         return itsOkay
 
-
-#TODO i must make better corelation with numbers and coffees
-
 def makeQuest(quest):
     global machineOn
     done=False
@@ -120,14 +108,9 @@ def makeQuest(quest):
         print(f'Sorry there is not enough {done}.')
 
 
-#tests
-
-#machine body
 def machine():
     while machineOn:
         whatToDo=onlyGoodOptions()
         makeQuest(whatToDo)
-        clearConsole()
 
 machine()
-# TODO 1 cleaning func
