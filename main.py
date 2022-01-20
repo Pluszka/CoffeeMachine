@@ -55,7 +55,7 @@ def insertCoin(bill):
     print(f'You should pay ${bill} (Press "X" to cancel)')
     while alreadyIn<bill:
         alreadyIn+=onlyGoodCoin()
-    print(alreadyIn)
+        print(f'${alreadyIn}/${bill}')
     return True
 
 def pay(moneyToPay):
