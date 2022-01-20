@@ -33,33 +33,36 @@ def brew(water, milk, coffee, cash):
     elif resources['coffee']<coffee:
         return 'coffe'
     else:
-        pay(cash)
-        resources['water'] -= water
-        resources['milk'] -= milk
-        resources['coffee'] -= coffee
-        return True
+        if pay(cash)==True:
+            resources['water'] -= water
+            resources['milk'] -= milk
+            resources['coffee'] -= coffee
+            return True
+        return False
 
 
 def onlyGoodCoin():
-    validFaceValue=[0.05, 0.01, 0.25, 0.10]
+    validFaceValue=[0.05, 0.01, 0.25, 0.10] #TODO add to list X and cancel order
     coin=None
     while not coin in validFaceValue:
         if coin!=None:
             print('Invalid coin.')
-        coin=int(input('Insert coin: $'))
+        coin=float(input('Insert coin: $'))
     return coin
 
 def insertCoin(bill):
-    alreadyin=0
+    alreadyIn=0
     print(f'You should pay ${bill} (Press "X" to cancel)')
-    while alreadyin>bill:
-        alredyin+=onlyGoodCoin()
-
+    while alreadyIn<bill:
+        alreadyIn+=onlyGoodCoin()
+    print(alreadyIn)
+    return True
 
 def pay(moneyToPay):
-    insertCoin(moneyToPay)
-    resources['money'] += moneyToPay
-    return True
+    if insertCoin(moneyToPay)==True:
+        resources['money'] += moneyToPay
+        return True
+    return False
 
 def coffe(typeOfCoffe, withmilk):
     product=[typeOfCoffe][0]
@@ -71,6 +74,8 @@ def coffe(typeOfCoffe, withmilk):
         itsOkay=brew(ingredients['water'],0, ingredients['coffee'], price)
     if itsOkay==True:
         return True
+    if itsOkay==False:
+        return None
     else:
         return itsOkay
 
@@ -93,7 +98,7 @@ def makeQuest(quest):
         report()
     if done==True:
         print(f'Here is your {listoOfCoffe[quest]}. Enjoy!')
-    elif done!=False:
+    elif done!=False and done!=None:
         print(f'Sorry there is not enough {done}.')
 
 
