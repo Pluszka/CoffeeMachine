@@ -33,7 +33,7 @@ def brew(water, milk, coffee, cash):
     elif resources['coffee']<coffee:
         return 'coffe'
     else:
-        if pay(cash)==True:
+        if pay(cash):
             resources['water'] -= water
             resources['milk'] -= milk
             resources['coffee'] -= coffee
@@ -59,21 +59,25 @@ def onlyGoodCoin():
 
 def insertCoin(bill):
     alreadyIn=0
-    print(f'You should pay ${bill} (Press "X" to cancel)')
+    print(f'You should pay ${bill}. You can use quarters, dimes, nickles or pennies\n(Press "X" to cancel)')
     while alreadyIn<bill:
         currentCoin=onlyGoodCoin()
-        if currentCoin==False:
+        if not currentCoin:
+            clearConsole()
+            if alreadyIn>0:
+                print(f'Here your money: ${alreadyIn}')
             print('Order canceled.')
             return False
         else:
             alreadyIn+=currentCoin
             print(f'${round(alreadyIn,2)}/${bill}')
+    clearConsole()
     if alreadyIn>bill:
         change(alreadyIn-bill)
     return True
 
 def pay(moneyToPay):
-    if insertCoin(moneyToPay)==True:
+    if insertCoin(moneyToPay):
         resources['money'] += moneyToPay
         return True
     return False
@@ -86,7 +90,7 @@ def coffe(typeOfCoffe, withmilk):
         itsOkay=brew(ingredients['water'],ingredients['milk'],ingredients['coffee'], price)
     else:
         itsOkay=brew(ingredients['water'],0, ingredients['coffee'], price)
-    if itsOkay==True:
+    if itsOkay:
         return True
     if itsOkay==False:
         return None
@@ -110,7 +114,7 @@ def makeQuest(quest):
         machineOn=False
     else:
         report()
-    if done==True:
+    if done:
         print(f'Here is your {listoOfCoffe[quest]}. Enjoy!')
     elif done!=False and done!=None:
         print(f'Sorry there is not enough {done}.')
@@ -119,8 +123,11 @@ def makeQuest(quest):
 #tests
 
 #machine body
-while machineOn:
-    whatToDo=onlyGoodOptions()
-    makeQuest(whatToDo)
-    clearConsole()
+def machine():
+    while machineOn:
+        whatToDo=onlyGoodOptions()
+        makeQuest(whatToDo)
+        clearConsole()
+
+machine()
 # TODO 1 cleaning func
